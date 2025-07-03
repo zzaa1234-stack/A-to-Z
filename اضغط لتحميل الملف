@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Who Knows Who Better?</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fefefe;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      color: #222;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #444;
+    }
+    .question {
+      margin: 20px 0;
+    }
+    .question button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+    .result {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Zeyad & Aya Quiz 💖</h1>
+  <div id="quiz">
+    <h2 id="question">Loading...</h2>
+    <div class="question" id="answers"></div>
+  </div>
+  <div class="result" id="result"></div>
+
+  <script>
+    const questions = [
+      {
+        q: "What does Aya prefer more?",
+        a: ["Coffee", "Juice", "Tea", "Energy Drinks"],
+        correct: 1
+      },
+      {
+        q: "What makes Zeyad the happiest?",
+        a: ["Fixing iPhones", "Hanging out with Aya", "Playing games", "Sushi"],
+        correct: 1
+      },
+      {
+        q: "If Aya could travel anywhere right now, where would she go?",
+        a: ["Paris", "Tokyo", "Dubai", "Alexandria"],
+        correct: 0
+      },
+      {
+        q: "What scares Zeyad the most?",
+        a: ["Losing his tools", "Losing Aya", "Running out of battery", "Public speaking"],
+        correct: 1
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const q = questions[current];
+      document.getElementById("question").textContent = q.q;
+      const answers = document.getElementById("answers");
+      answers.innerHTML = "";
+      q.a.forEach((answer, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = answer;
+        btn.onclick = () => checkAnswer(index);
+        answers.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(index) {
+      if (index === questions[current].correct) {
+        score++;
+      }
+      current++;
+      if (current < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById("quiz").style.display = "none";
+      document.getElementById("result").textContent =
+        `You got ${score} out of ${questions.length} correct. 💘`;
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
